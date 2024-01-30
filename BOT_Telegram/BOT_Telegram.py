@@ -1,17 +1,14 @@
 #!/usr/bin/env python3
 import requests
+import telegram
 
-idBot = '586663935'
-idGrupo = '-4109128386'
-
-def enviarMensaje(mensaje):
-    requests.post('6145372647:AAFnUWYbcJ1LW9Qv6f9gAuQ98Ez5c5q1HAI' + idBot + '/sendMessage',
-              data={'chat_id': idGrupo, 'text': mensaje, 'parse_mode': 'HTML'})
-
-def enviarDocumento(ruta):
-    requests.post('6145372647:AAFnUWYbcJ1LW9Qv6f9gAuQ98Ez5c5q1HAI' + idBot + '/sendDocument',
-              files={'document': (ruta, open(ruta, 'rb'))},
-              data={'chat_id': idGrupo, 'caption': 'imagen caption'})
-    
-enviarMensaje("Hola, soy un bot y estoy mandando un mensaje a Telegram usando Python")
-enviarDocumento("esta/es/la/ruta/completa/del/documento.jpg")
+# Definir el token del bot
+bot_token = 'TU_TOKEN_AQUÍ' # Reemplaza con tu token
+# Inicializar el bot
+bot = telegram.Bot(token=bot_token)
+# ID de chat de destino (puede ser tu propio chat o un grupo)
+chat_id = 'ID_DEL_CHAT_AQUI' # Reemplaza con el ID de chat de destino
+# Mensaje que deseas enviar
+message = 'Hola, este es un mensaje automático.'
+# Envía el mensaje
+bot.send_message(chat_id=chat_id, text=message)
