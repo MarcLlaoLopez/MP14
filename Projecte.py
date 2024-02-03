@@ -1,100 +1,91 @@
 import tkinter as tk
+from tkinter import ttk
+from tkinter import messagebox
 import subprocess
+import os
 
-def funcion_1():
+class VentanaPrincipal(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Projecte")
+        self.configure(bg="#282a36")
 
-    ventana_emergente = tk.Toplevel(ventana)
-    ventana_emergente.title("API Shodan")
-    print("Mostrando opciones API Shodan")
-    def funcion_1_api():
+        # Mostrar mensaje de bienvenida en el centro
+        mensaje_bienvenida = tk.Label(self, text="Bienvenidos a CyberPrawns", bg="#282a36", fg="#f8f8f2", font=("Helvetica", 16, "bold"))
+        mensaje_bienvenida.pack(expand=True, pady=50)
+
+        # Crear contenedor para los botones de operaciones
+        self.contenedor_botones = tk.Frame(self, bg="#282a36")
+        self.contenedor_botones.pack(expand=True, padx=50, pady=20)
+
+        # Botón para la consulta a la API de Shodan
+        self.boton_api_shodan = ttk.Button(self.contenedor_botones, text="Consulta API SHODAN", command=self.mostrar_opciones_shodan, style="TButton")
+        self.boton_api_shodan.pack(fill=tk.X, pady=5)
+
+        # Botones de otras operaciones
+        self.boton_ennumeracio = ttk.Button(self.contenedor_botones, text="Ennumeració", command=self.abrir_ennumeracio, style="TButton")
+        self.boton_ennumeracio.pack(fill=tk.X, pady=5)
+
+        self.boton_escaneig = ttk.Button(self.contenedor_botones, text="Escaneig", command=self.abrir_escaneig, style="TButton")
+        self.boton_escaneig.pack(fill=tk.X, pady=5)
+
+        self.boton_sshaudit = ttk.Button(self.contenedor_botones, text="SSHAudit", command=self.abrir_sshaudit, style="TButton")
+        self.boton_sshaudit.pack(fill=tk.X, pady=5)
+
+        self.boton_acerca_de = ttk.Button(self.contenedor_botones, text="Acerca de", command=self.abrir_acerca_de, style="TButton")
+        self.boton_acerca_de.pack(fill=tk.X, pady=5)
+
+        self.estilo_botones()
+
+    def estilo_botones(self):
+        style = ttk.Style()
+        style.configure("TButton", foreground="#f8f8f2", background="#44475a", font=("Helvetica", 12, "bold"))
+
+    def abrir_ennumeracio(self):
         try:
-            # Ruta al programa externo que deseas ejecutar
-            programa = "Consulta_API_Shodan/Consulta_API_Shodan1.py"  
-
-            # Ejecuta el programa
-            subprocess.Popen([programa])
-
-            
-
+            programa = "Ennumeració/Ennumeració.py"
+            if os.path.exists(programa):
+                subprocess.Popen(["python3", programa])
+            else:
+                messagebox.showerror("Error", "El programa de enumeración no se encuentra.")
         except Exception as e:
-            print("Error al abrir el programa:", str(e))
+            messagebox.showerror("Error", f"No se pudo abrir el programa: {e}")
 
-    def funcion_2_api():
+    def abrir_escaneig(self):
         try:
-            # Ruta al programa externo que deseas ejecutar
-            programa = "Consulta_API_Shodan/Consulta_API_Shodan2.py"  
-
-            # Ejecuta el programa
-            subprocess.Popen([programa])
-
+            programa = "Escaneig/escaneig.py"
+            if os.path.exists(programa):
+                subprocess.Popen(["python3", programa])
+            else:
+                messagebox.showerror("Error", "El programa de escaneo no se encuentra.")
         except Exception as e:
-            print("Error al abrir el programa:", str(e))
-    def funcion_3_api():
+            messagebox.showerror("Error", f"No se pudo abrir el programa: {e}")
+
+    def abrir_sshaudit(self):
         try:
-            # Ruta al programa externo que deseas ejecutar
-            programa = "Consulta_API_Shodan/Consulta_API_Shodan3.py"  
-
-            # Ejecuta el programa
-            subprocess.Popen([programa])
-
+            programa = "SSH_Audit/ssh_audit.py"
+            if os.path.exists(programa):
+                subprocess.Popen(["python3", programa])
+            else:
+                messagebox.showerror("Error", "El programa de auditoría SSH no se encuentra.")
         except Exception as e:
-            print("Error al abrir el programa:", str(e))
+            messagebox.showerror("Error", f"No se pudo abrir el programa: {e}")
 
-    def funcion_4_api():
-        try:
-            # Ruta al programa externo que deseas ejecutar
-            programa = "Consulta_API_Shodan/Consulta_API_Shodan4.py"  
+    def abrir_acerca_de(self):
+        messagebox.showinfo("Acerca de", "Esta aplicación ha sido desarrollada por Los CyberPrawns.")
 
-            # Ejecuta el programa
-            subprocess.Popen([programa])
+    def mostrar_opciones_shodan(self):
+        opciones = [
+            ("Preguntar IP y mostrar información", "Consulta_API_Shodan/Consulta_API_Shodan1.py"),
+            ("Mostrar únicamente los nombres de dominio", "Consulta_API_Shodan/Consulta_API_Shodan2.py"),
+            ("Qué servicio hay en cada uno de los puertos abiertos", "Consulta_API_Shodan/Consulta_API_Shodan3.py"),
+            ("Escribe el nombre de un servicio", "Consulta_API_Shodan/Consulta_API_Shodan4.py")
+        ]
+        menu = tk.Menu(self, tearoff=0)
+        for texto, programa in opciones:
+            menu.add_command(label=texto, command=lambda p=programa: subprocess.Popen(["python3", p]))
+        self.boton_api_shodan.bind("<Button-1>", lambda event: menu.post(event.x_root, event.y_root))
 
-        except Exception as e:
-            print("Error al abrir el programa:", str(e))
-
-    boton_1_api = tk.Button(ventana_emergente, text="Preguntar IP y mostrar información", command=funcion_1_api)
-    boton_2_api = tk.Button(ventana_emergente, text="Mostrar unicamente los nombres de dominio", command=funcion_2_api)
-    boton_3_api = tk.Button(ventana_emergente, text="Que servicio hay en cada uno de los puertos abiertos", command=funcion_3_api)
-    boton_4_api = tk.Button(ventana_emergente, text="Escribe el nombre de un servicio", command=funcion_4_api)
-
-    boton_1_api.pack(pady=10)
-    boton_2_api.pack(pady=10)
-    boton_3_api.pack(pady=10)
-    boton_4_api.pack(pady=10)
-
-def abrir_ventana_emergente():
-    ventana_emergente = tk.Toplevel(ventana)
-    ventana_emergente.title("Ennumeració")
-    print("Ennumeració")
-
-    def ennumeracio():
-        try:
-            # Ruta al programa externo que deseas ejecutar
-            programa = "Ennumeració/Ennumeració.py"  
-
-            # Ejecuta el programa
-            subprocess.Popen(["python3", programa])
-
-        except Exception as e:
-            print("Error al abrir el programa:", str(e))
-
-    boton_ennumeracio = tk.Button(ventana_emergente, text="Preguntar IP y mostrar información", command=ennumeracio)
-    boton_ennumeracio.pack(pady=10)
-
-def ventana():
-    ventana = tk.Toplevel
-    ventana.title("Escaneig")
-    
-
-# Crear la ventana principal
-ventana = tk.Tk()
-ventana.title("Projecte")
-
-# Crear botones
-boton_1 = tk.Button(ventana, text="Abrir Consulta API SHODAN", command=funcion_1)
-boton_2 = tk.Button(ventana, text="Ennumeració", command=abrir_ventana_emergente)
-
-boton_1.pack(pady=10)
-boton_2.pack(pady=10)
-
-# Inicia el bucle principal de la aplicación
-ventana.mainloop()
+if __name__ == "__main__":
+    app = VentanaPrincipal()
+    app.mainloop()
