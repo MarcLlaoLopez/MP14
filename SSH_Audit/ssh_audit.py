@@ -5,7 +5,7 @@ from tkinter import simpledialog
 import subprocess
 
 class VentanaPrincipal(tk.Tk):
-    def __init__(self):
+    def __init__(self): 
         super().__init__()
         self.title("SSH Audit")
         self.configure(bg="#282a36")
