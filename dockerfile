@@ -13,16 +13,23 @@ RUN apt-get update && apt-get install -y ssh-audit
 RUN pip install shodan
 
 # Instalar las dependencias de Python
-RUN pip install nmap-python
+RUN apt-get install -y nmap
 
 # Instalar las dependencias de Python
-RUN pip install nmap-python python-telegram-bot
+RUN pip install python-telegram-bot
 
-# Instalar enum4linux
-RUN apt-get update && apt-get install -y enum4linux
+FROM python:3.8-alpine
+
+RUN apk upgrade --no-cache
+RUN apk add --no-cache rust cargo openssl-dev libffi-dev py3-pip python3 samba-client samba-common-tools yaml-dev
+RUN apk add --no-cache --virtual build-dependencies build-base git \
+  && git clone --depth 1 https://github.com/cddmp/enum4linux-ng.git \
+  && pip install --no-cache-dir -r enum4linux-ng/requirements.txt \
+  && apk del build-dependencies
+
 
 # Copiar los archivos desde el sistema de archivos del host al sistema de archivos del contenedor
-COPY /media/alumne/USB\ 32GB\ Marc/SEGUNDO/MP14 /app/
+COPY / /app/
 
 # Establecer el comando por defecto a ejecutar cuando se inicie el contenedor
-CMD [ "python3", "archivo4.py" ]
+CMD [ "python3", "/media/alumne/USB_32GB_Marc/SEGUNDO/MP14/Projecte.py" ]
