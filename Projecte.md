@@ -82,3 +82,28 @@ La tercera opció el que fa es un escaneig per a llistar els serveis i les versi
 I la cuarta opción ens fa un escaneig de vulnerabilitats de la IP desitjada sobre els ports que volem
 
 ![Imagen15](/Escaneig/Selección_005.png)
+
+# BOT Telegram
+El bot de Telegram es una eina que hem implementat per a podre manar els resultats de les nostres comandes a un chat propi
+
+![Imagen16](BOT_Telegram/Selección_001.png)
+
+Aquí tenim una proba de com enviarem un missatge
+
+![Imagen16](BOT_Telegram/Selección_002.png)
+
+I aqui tenim la noticifació del missatge que hem enviat
+
+![Imagen17](BOT_Telegram/Selección_003.png)
+
+# Docker
+Docker és una plataforma de codi obert que permet als desenvolupadors empaquetar, distribuir i executar aplicacions dins de contenidors. Un contenidor és una unitat de programari lleugera i portàtil que inclou tot el necessari per executar una aplicació, com ara el codi, les biblioteques, les eines i les configuracions
+
+Aquest sería el coningut del nostre fitxer docker
+
+![Imagen18](BOT_Telegram/Selección_004.png)
+
+I aixi el docker build
+
+![Imagen19](BOT_Telegram/Selección_005.png)
+
